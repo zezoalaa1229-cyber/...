@@ -1,0 +1,1946 @@
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZEKAA-INJECTOR</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            /* زويق ثيم - أخضر نيون وأسود */
+            --primary-green: #00ff88;
+            --secondary-green: #00cc6a;
+            --dark-bg: #000;
+            --card-bg: rgba(0, 0, 0, 0.6);
+            --border-color: rgba(0, 255, 136, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --accent-blue: #4285f4;
+            --accent-green: #34a853;
+            --shadow-green: rgba(0, 255, 136, 0.3);
+            --gradient-primary: linear-gradient(135deg, #00ff88, #00cc6a);
+            --gradient-dark: linear-gradient(135deg, #000 0%, #111 50%, #000 100%);
+        }
+        body {
+            font-family: 'Cairo', 'Inter', sans-serif;
+            background: var(--gradient-dark);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        /* Enhanced Background Effect with Parallax */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            transition: transform 0.1s ease-out;
+            transform: var(--parallax-offset, translateY(0));
+        }
+        /* Floating particles background */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(0, 255, 136, 0.4), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(0, 255, 136, 0.3), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(0, 255, 136, 0.5), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(0, 255, 136, 0.3), transparent);
+            background-repeat: repeat;
+            background-size: 150px 100px;
+            pointer-events: none;
+            z-index: -1;
+            animation: floatingParticles 20s linear infinite;
+            opacity: 0.4;
+        }
+        @keyframes floatingParticles {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-100px) translateX(-50px); }
+        }
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-primary);
+            border-radius: 4px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            animation: slideDown 0.8s ease-out;
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: greenShimmer 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+            transition: all 0.3s ease;
+            animation: logoGlowGreen 3s ease-in-out infinite, logoSpinOnLoad 1.5s ease-out;
+        }
+        .logo:hover .logo-image {
+            transform: rotate(360deg) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.5);
+        }
+        @keyframes logoGlowGreen {
+            0%, 100% { 
+                box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+            }
+            50% { 
+                box-shadow: 0 6px 25px rgba(0, 255, 136, 0.6);
+            }
+        }
+        @keyframes logoSpinOnLoad {
+            0% { 
+                transform: rotate(0deg) scale(0.8);
+                opacity: 0.7;
+            }
+            50% {
+                transform: rotate(180deg) scale(1.1);
+                opacity: 0.9;
+            }
+            100% { 
+                transform: rotate(360deg) scale(1);
+                opacity: 1;
+            }
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        .nav-link:hover::before {
+            left: 100%;
+        }
+        .nav-link:hover {
+            color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-green);
+        }
+        .nav-link.gamelist {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(33, 150, 243, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-link.gamelist::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .nav-link.gamelist:hover::before {
+            left: 100%;
+        }
+        .nav-link.gamelist:hover {
+            background: linear-gradient(135deg, #1976D2, #1565C0);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.5);
+        }
+        .nav-link.premium {
+            background: var(--gradient-primary);
+            color: #000;
+            font-weight: 600;
+        }
+        .language-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .language-toggle:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+        }
+        /* ST-STORE Button - Enhanced Design */
+        .nav-link.st-store {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8B5CF6 100%);
+            color: #fff !important;
+            font-weight: 800;
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4), 0 2px 10px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9em;
+            padding: 12px 24px;
+            border-radius: 30px;
+            animation: storeGlow 4s ease-in-out infinite alternate, storePulse 2s ease-in-out infinite;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .nav-link.st-store::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.8s ease;
+            z-index: 1;
+        }
+        .nav-link.st-store::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #8B5CF6, #A855F7, #C084FC, #E879F9);
+            background-size: 600% 600%;
+            border-radius: 30px;
+            z-index: -1;
+            animation: gradientShift 6s ease infinite;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .nav-link.st-store:hover::after {
+            opacity: 1;
+        }
+        .nav-link.st-store:hover::before {
+            left: 100%;
+        }
+        .nav-link.st-store:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 50%, #7C3AED 100%);
+            transform: translateY(-4px) scale(1.08);
+            box-shadow: 0 12px 35px rgba(139, 92, 246, 0.6), 0 4px 15px rgba(102, 126, 234, 0.4);
+            color: #fff !important;
+            letter-spacing: 3px;
+        }
+        .nav-link.st-store:active {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.8), 0 2px 10px rgba(102, 126, 234, 0.5);
+            transition: all 0.1s ease;
+        }
+        .nav-link.st-store i {
+            animation: storeIconFloat 3s ease-in-out infinite;
+            margin-left: 10px;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            font-size: 1.1em;
+            position: relative;
+            z-index: 2;
+        }
+        .nav-link.st-store:hover i {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.2) rotate(360deg);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+        @keyframes storeIconFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg) scale(1); 
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            }
+            33% { 
+                transform: translateY(-3px) rotate(5deg) scale(1.05); 
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            }
+            66% { 
+                transform: translateY(2px) rotate(-5deg) scale(1.02); 
+                box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+            }
+        }
+        @keyframes storeGlow {
+            0% {
+                box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4), 0 2px 10px rgba(102, 126, 234, 0.3);
+                filter: brightness(1);
+            }
+            50% {
+                box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6), 0 4px 15px rgba(102, 126, 234, 0.4), 0 0 25px rgba(139, 92, 246, 0.2);
+                filter: brightness(1.1);
+            }
+            100% {
+                box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4), 0 2px 10px rgba(102, 126, 234, 0.3);
+                filter: brightness(1);
+            }
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes storePulse {
+            0%, 100% { 
+                transform: scale(1);
+            }
+            50% { 
+                transform: scale(1.02);
+            }
+        }
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 40px 0;
+        }
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 80px 0;
+            position: relative;
+        }
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 50px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        .cta-button {
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.4s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cta-button.primary {
+            background: var(--gradient-primary);
+            color: #000;
+            box-shadow: 0 10px 30px var(--shadow-green);
+        }
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+        }
+        .cta-button.primary:hover {
+            box-shadow: 0 15px 40px var(--shadow-green);
+        }
+        .cta-button.secondary:hover {
+            background: var(--card-bg);
+            border-color: var(--primary-green);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+        /* Free Activation Key Button */
+        .cta-button.free-activation-key {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+            border-radius: 60px;
+            font-size: 18px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .cta-button.free-activation-key::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.8s ease;
+        }
+        .cta-button.free-activation-key::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+            background-size: 400% 400%;
+            border-radius: 60px;
+            z-index: -1;
+            animation: gradientShift 4s ease infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .cta-button.free-activation-key:hover::after {
+            opacity: 1;
+        }
+        .cta-button.free-activation-key:hover::before {
+            left: 100%;
+        }
+        .cta-button.free-activation-key:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.6);
+            transform: translateY(-8px) scale(1.08);
+        }
+        .cta-button.free-activation-key i {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px;
+            border-radius: 50%;
+            margin-left: 5px;
+            animation: keyPulse 2s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+        .cta-button.free-activation-key:hover i {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(15deg) scale(1.1);
+        }
+        .cta-button.free-activation-key .btn-text {
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        @keyframes keyPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        /* Program Preview Section */
+        .program-preview-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 60px 0;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease-out;
+        }
+        .preview-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .preview-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+        .preview-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+        .preview-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .preview-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        .preview-feature i {
+            color: var(--accent-green);
+            font-size: 16px;
+        }
+        .preview-feature:hover {
+            color: var(--primary-green);
+            transform: translateX(5px);
+        }
+        .preview-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: var(--gradient-primary);
+            color: #000;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px var(--shadow-green);
+            position: relative;
+        }
+        .preview-download-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px var(--shadow-green);
+        }
+        .free-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--gradient-primary);
+            color: #000;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 255, 136, 0.4);
+            animation: freeBadgePulse 2s ease-in-out infinite;
+            border: 2px solid #fff;
+        }
+        @keyframes freeBadgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .price-section {
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 204, 106, 0.1));
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .price-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            animation: priceShimmer 3s ease-in-out infinite;
+        }
+        @keyframes priceShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .price-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .current-price {
+            font-size: 28px;
+            font-weight: 800;
+            color: #00ff88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+        .free-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #000;
+            background: var(--primary-green);
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 136, 0.4);
+            animation: freeLabelGlow 2s ease-in-out infinite;
+        }
+        @keyframes freeLabelGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(0, 255, 136, 0.3); }
+            50% { box-shadow: 0 0 15px rgba(0, 255, 136, 0.6); }
+        }
+        .image-container {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+            border: 2px solid var(--border-color);
+            background: #000;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        .image-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            border-color: var(--primary-green);
+        }
+        .program-screenshot {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            image-rendering: auto;
+            image-rendering: high-quality;
+            image-rendering: -webkit-optimize-contrast;
+            filter: brightness(1.02) contrast(1.05);
+            object-fit: contain;
+            object-position: center;
+            background: #000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        /* Section Styles */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--primary-green);
+            position: relative;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 1s ease-out 0.5s both;
+        }
+        /* Feature Cards */
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            transition: all 0.3s ease;
+            animation: fadeInLeft 0.8s ease-out;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-green);
+            border-color: rgba(0, 255, 136, 0.5);
+        }
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 8px;
+        }
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .feature-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .feature-link:hover {
+            color: var(--primary-green);
+        }
+        /* Statistics Cards */
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            animation: fadeInRight 0.8s ease-out;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-green);
+        }
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-green));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+        }
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-green);
+            line-height: 1;
+            position: relative;
+        }
+        .stat-number.loading::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-top: 2px solid var(--primary-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        /* Discord Widget */
+        .discord-widget {
+            background: linear-gradient(135deg, #00ff88, #2c00cc);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            color: white;
+            box-shadow: 0 8px 32px rgba(0, 255, 136, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .discord-widget:hover {
+            transform: translateY(-5px);
+        }
+        .discord-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .discord-status {
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .discord-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .server-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .server-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+        .server-members {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        .server-members i {
+            color: #00ff88;
+        }
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background: #23a55a;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        .discord-join-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .discord-join-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+            color: white;
+        }
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeInLeft {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes greenShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 1; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.7; 
+                transform: scale(1.05);
+            }
+        }
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 50px; }
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        /* Scroll Animation Classes */
+        .scroll-element {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        .scroll-element.scroll-fade-in-up {
+            transform: translateY(30px);
+        }
+        .scroll-element.scroll-fade-in-left {
+            transform: translateX(-50px) translateY(0);
+        }
+        .scroll-element.scroll-fade-in-right {
+            transform: translateX(50px) translateY(0);
+        }
+        .scroll-element.scroll-scale {
+            transform: scale(0.8) translateY(30px);
+        }
+        .scroll-element.animate {
+            opacity: 1;
+            transform: translateY(0) translateX(0) scale(1);
+        }
+        /* Number Counter Animation */
+        .counter {
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .counter.counting {
+            color: var(--primary-green);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+        /* Stagger Animation Delays */
+        .scroll-element:nth-child(1) { transition-delay: 0s; }
+        .scroll-element:nth-child(2) { transition-delay: 0.1s; }
+        .scroll-element:nth-child(3) { transition-delay: 0.2s; }
+        .scroll-element:nth-child(4) { transition-delay: 0.3s; }
+        .scroll-element:nth-child(5) { transition-delay: 0.4s; }
+        .scroll-element:nth-child(6) { transition-delay: 0.5s; }
+        /* Progressive reveal for text */
+        .scroll-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        .scroll-text.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Image zoom on scroll */
+        .scroll-image {
+            transform: scale(1.1);
+            transition: transform 1.2s ease-out;
+            opacity: 0.8;
+        }
+        .scroll-image.animate {
+            transform: scale(1);
+            opacity: 1;
+        }
+        /* Glowing effect on scroll */
+        .scroll-glow {
+            box-shadow: 0 0 0 rgba(0, 255, 136, 0);
+            transition: box-shadow 0.8s ease-out;
+        }
+        .scroll-glow.animate {
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+        }
+        /* Additional scroll effects */
+        body.scrolling {
+            --bg-opacity: 0.8;
+        }
+        /* Enhanced header effect */
+        .header {
+            transition: all 0.3s ease;
+        }
+        body.scrolling .header {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+        }
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Loading state for animations */
+        .scroll-element.loading {
+            opacity: 0.5;
+            transform: translateY(20px);
+        }
+        /* Hover effects enhancement */
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1);
+        }
+        /* Text reveal animation */
+        .text-reveal {
+            overflow: hidden;
+            position: relative;
+        }
+        .text-reveal::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+        }
+        .text-reveal.animate::after {
+            transform: translateX(100%);
+        }
+        /* How it Works Section */
+        .how-it-works-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 60px 0;
+            backdrop-filter: blur(10px);
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .step-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .step-card:hover::before {
+            opacity: 1;
+        }
+        .step-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-green);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.2);
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .step-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+        .step-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        @media (max-width: 768px) {
+            .how-it-works-section {
+                padding: 40px 20px;
+                margin: 40px 0;
+            }
+            .steps-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .step-card {
+                padding: 25px 15px;
+            }
+        }
+        /* Games Section */
+        .games-showcase {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+        .games-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .games-description {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .games-categories {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        .category-pill {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 25px;
+            padding: 10px 20px;
+            color: var(--primary-green);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .category-pill:hover {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
+        }
+        .popular-games {
+            margin-top: 40px;
+        }
+        .popular-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--primary-green);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .games-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .game-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        .game-item:hover {
+            background: rgba(0, 255, 136, 0.05);
+            border-color: rgba(0, 255, 136, 0.3);
+            color: var(--primary-green);
+            transform: translateX(5px);
+        }
+        .game-item i {
+            color: var(--primary-green);
+            font-size: 16px;
+        }
+        .games-note {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+        .games-note i {
+            color: var(--primary-green);
+        }
+        @media (max-width: 768px) {
+            .games-showcase {
+                padding: 25px 20px;
+            }
+            .games-categories {
+                gap: 10px;
+            }
+            .category-pill {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+            .games-list {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .game-item {
+                padding: 12px 15px;
+            }
+            .games-note {
+                padding: 15px;
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+                font-size: 14px;
+            }
+        }
+        /* Discord Widget */
+        .discord-widget {
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .discord-widget::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .discord-widget:hover::before {
+            opacity: 1;
+        }
+        .discord-widget:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4);
+        }
+        .discord-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        .discord-header i {
+            font-size: 24px;
+            margin-left: 10px;
+        }
+        .discord-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+        .discord-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+        .discord-info {
+            flex: 1;
+        }
+        .server-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .server-status {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background: #23a55a;
+            border-radius: 50%;
+            margin-left: 8px;
+            animation: pulse 2s infinite;
+        }
+        .server-members {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .server-members i {
+            margin-left: 8px;
+            font-size: 14px;
+        }
+        .discord-join-btn {
+            background: linear-gradient(135deg, #ffffff, #f0f0f0);
+            color: #00ff88;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .discord-join-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+        .discord-join-btn:hover::before {
+            left: 100%;
+        }
+        .discord-join-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .preview-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+            .nav-menu {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .feature-card,
+            .stat-card {
+                padding: 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .program-preview-section {
+                padding: 30px 20px;
+            }
+            .preview-title {
+                font-size: 2rem;
+            }
+            .image-container {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+            .program-screenshot {
+                width: 100%;
+            }
+            .price-section {
+                margin: 15px 0;
+                padding: 15px;
+            }
+            .price-display {
+                gap: 10px;
+            }
+            .current-price {
+                font-size: 24px;
+            }
+            .free-label {
+                font-size: 14px;
+                padding: 4px 10px;
+            }
+            .nav-link.st-store {
+                animation: storePulseMobile 2.5s ease-in-out infinite, storeGlowMobile 3s ease-in-out infinite alternate;
+                font-size: 0.85em;
+                padding: 12px 18px;
+                margin: 8px 0;
+                letter-spacing: 1.5px;
+                border-radius: 25px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8B5CF6 100%);
+                box-shadow: 0 4px 15px rgba(139, 92, 246, 0.5), 0 2px 8px rgba(102, 126, 234, 0.3);
+            }
+            .nav-link.st-store i {
+                animation: storeIconFloatMobile 2s ease-in-out infinite;
+                font-size: 1em;
+                padding: 6px;
+            }
+            @keyframes storePulseMobile {
+                0%, 100% { 
+                    transform: scale(1);
+                }
+                50% { 
+                    transform: scale(1.06);
+                }
+            }
+            @keyframes storeGlowMobile {
+                0% {
+                    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.5), 0 2px 8px rgba(102, 126, 234, 0.3);
+                    filter: brightness(1);
+                }
+                100% {
+                    box-shadow: 0 6px 25px rgba(139, 92, 246, 0.7), 0 3px 12px rgba(102, 126, 234, 0.4), 0 0 20px rgba(139, 92, 246, 0.2);
+                    filter: brightness(1.15);
+                }
+            }
+            @keyframes storeIconFloatMobile {
+                0%, 100% { 
+                    transform: translateY(0px) rotate(0deg); 
+                }
+                50% { 
+                    transform: translateY(-2px) rotate(10deg); 
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span>ZEKAA-INJECTOR</span>
+                <img src="https://www2.0zz0.com/2025/08/11/03/868106504.png" alt="ZEKAA-INJECTOR Logo" class="logo-image">
+            </div>
+            <nav class="nav-menu">
+                <a href="games.html" class="nav-link gamelist">
+                    <i class="fas fa-wifi"></i>
+                    <span data-ar="قائمة الألعاب الاونلاين" data-en="Online Games List">قائمة الألعاب الاونلاين</span>
+                </a>
+                <a href="/store" class="nav-link st-store">
+                    <span data-ar="ST-STORE" data-en="ST-STORE">SOON</span>
+                    <i class="fas fa-store"></i>
+                </a>
+                <button id="languageToggle" class="nav-link language-toggle">
+                    <i class="fas fa-globe"></i>
+                    <span id="langText">EN</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <h1 class="hero-title scroll-text animate" data-ar="ZEKAA-INJECTOR" data-en="ZEKAA-INJECTOR">ZEKAA-INJECTOR</h1>
+                <h2 class="hero-subtitle scroll-text animate" data-ar="ضيف دلوقتي كل العاب وبرامج ستيم مجانا" data-en="Add all Steam games and programs for free now">ضيف دلوقتي كل العاب وبرامج ستيم مجانا</h2>
+                <p class="hero-description scroll-text animate" data-ar="احصل على الألعاب المجانية وأضفها لمكتبة Steam الخاصة بك مع جميع التحديثات والـ DLC والأونلاين بطريقة شرعية ومجانية تماماً" data-en="Get free games and add them to your Steam library with all updates, DLC and online features through legal and completely free methods">
+                    احصل على الألعاب المجانية وأضفها لمكتبة Steam الخاصة بك مع جميع التحديثات والـ DLC والأونلاين بطريقة شرعية ومجانية تماماً
+                </p>
+                <div class="cta-buttons scroll-element scroll-fade-in-up animate">
+                    <a href="#" class="cta-button secondary free-activation-key" data-ar="مفتاح تفعيل مجاني" data-en="Free Activation Key">
+                        <i class="fas fa-key"></i>
+                        <span class="btn-text">مفتاح تفعيل مجاني</span>
+                    </a>
+                </div>
+            </section>
+            <!-- Program Preview Section -->
+            <section class="program-preview-section scroll-element scroll-fade-in-up scroll-glow animate">
+                <div class="preview-content">
+                    <div class="preview-text scroll-element scroll-fade-in-left animate">
+                        <h2 class="preview-title scroll-text animate" data-ar="واجهة البرنامج" data-en="Program Interface">واجهة البرنامج</h2>
+                        <p class="preview-description scroll-text animate" data-ar="يمكنك إضافة أي لعبة أو برنامج بضغطة زر واحدة، مع جميع التحديثات والإضافات والمحتويات الإضافية بسهولة تامة ويسر" data-en="You can add any game or program with one click, including all updates, add-ons and additional content with complete ease">
+                            يمكنك إضافة أي لعبة أو برنامج بضغطة زر واحدة، مع جميع التحديثات والإضافات والمحتويات الإضافية بسهولة تامة ويسر
+                        </p>
+                        <div class="price-section scroll-element scroll-scale">
+                            <div class="price-display">
+                                <span class="current-price">$0.00</span>
+                                <span class="free-label" data-ar="مجاني تماماً!" data-en="Completely Free!">مجاني تماماً!</span>
+                            </div>
+                        </div>
+                        <div class="preview-features">
+                            <div class="preview-feature scroll-element scroll-fade-in-left">
+                                <i class="fas fa-check-circle"></i>
+                                <span data-ar="إضافة الألعاب مباشرة لمكتبة Steam" data-en="Add games directly to Steam library">إضافة الألعاب مباشرة لمكتبة Steam</span>
+                            </div>
+                            <div class="preview-feature scroll-element scroll-fade-in-left">
+                                <i class="fas fa-check-circle"></i>
+                                <span data-ar="جميع الـ DLC والتحديثات مجاناً" data-en="All DLC and updates for free">جميع الـ DLC والتحديثات مجاناً</span>
+                            </div>
+                            <div class="preview-feature scroll-element scroll-fade-in-left">
+                                <i class="fas fa-check-circle"></i>
+                                <span data-ar="دعم الأونلاين والملتي بلاير" data-en="Online and multiplayer support">دعم الأونلاين والملتي بلاير</span>
+                            </div>
+                            <div class="preview-feature scroll-element scroll-fade-in-left">
+                                <i class="fas fa-check-circle"></i>
+                                <span data-ar="الألعاب الحديثة بدون كراك" data-en="Latest games without cracks">الألعاب الحديثة بدون كراك</span>
+                            </div>
+                        </div>
+                        <a href="sssssssssssssssssssssssssssss" class="preview-download-btn scroll-element scroll-scale">
+                            <i class="fas fa-download"></i>
+                            <span data-ar="تحميل البرنامج الآن" data-en="Download Program Now">تحميل البرنامج الآن</span>
+                            <span class="free-badge">FREE</span>
+                        </a>
+                        <!-- Discord Widget -->
+                        <div class="discord-widget scroll-element scroll-scale" style="margin-top: 30px; max-width: 100%; box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);">
+                            <div class="discord-header">
+                                <i class="fab fa-discord"></i>
+                                <span data-ar="انضم إلى مجتمعنا" data-en="Join Our Community">انضم إلى مجتمعنا</span>
+                                <span class="discord-status">🟢 متصل</span>
+                            </div>
+                            <div class="discord-content">
+                                <div class="discord-info">
+                                    <div class="server-name">ZEKAA Injector</div>
+                                    <div class="server-status">
+                                        <div class="online-dot"></div>
+                                        <span id="onlineNow" class="counter">247</span> <span class="online-text" data-ar="متصل الآن" data-en="online now">متصل الآن</span>
+                                    </div>
+                                    <div class="server-members">
+                                        <i class="fas fa-users"></i>
+                                        <span id="discordMembersWidget" class="counter">8,432</span> <span class="members-text" data-ar="عضو كلي" data-en="total members">عضو كلي</span>
+                                    </div>
+                                </div>
+                                <a href="https://discord.gg/feVHYz4V47" class="discord-join-btn">
+                                    <i class="fas fa-plus"></i>
+                                    <span data-ar="انضم الآن" data-en="Join Now">انضم الآن</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-image scroll-element scroll-fade-in-right animate">
+                        <div class="image-container">
+                            <img src="https://www2.0zz0.com/2025/08/11/03/732806896.png" alt="ZEKAA-INJECTOR Interface" class="program-screenshot scroll-image">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script>
+        // Discord Server Configuration
+        const DISCORD_SERVER_ID = '1362147533429670014';
+        // Simple Discord data update
+        async function updateDiscordData() {
+            const currentLang = document.documentElement.lang || 'ar';
+            try {
+                const inviteResponse = await fetch(`https://discord.gg/feVHYz4V47?with_counts=true`);
+                if (inviteResponse.ok) {
+                    const inviteData = await inviteResponse.json();
+                    if (inviteData.approximate_member_count) {
+                        document.getElementById('discordMembersWidget').textContent = inviteData.approximate_member_count.toLocaleString();
+                    }
+                    if (inviteData.approximate_presence_count) {
+                        document.getElementById('onlineNow').textContent = inviteData.approximate_presence_count.toLocaleString();
+                    }
+                    if (inviteData.guild && inviteData.guild.name) {
+                        document.querySelector('.server-name').textContent = inviteData.guild.name;
+                    }
+                    // Update status with proper language
+                    const statusText = currentLang === 'ar' ? '🟢 متصل' : '🟢 online';
+                    document.querySelector('.discord-status').textContent = statusText;
+                } else {
+                    // Keep default values if API fails with proper language
+                    const statusText = currentLang === 'ar' ? '🟡 تقريبي' : '🟡 approximate';
+                    document.querySelector('.discord-status').textContent = statusText;
+                }
+            } catch (error) {
+                console.log('Discord API غير متاح، استخدام القيم الافتراضية');
+                const statusText = currentLang === 'ar' ? '🟡 تقريبي' : '🟡 approximate';
+                document.querySelector('.discord-status').textContent = statusText;
+            }
+        }
+        // Language Toggle
+        const translations = {
+            ar: {
+                'ZEKAA-INJECTOR': 'ZEKAA-INJECTOR',
+                'ضيف دلوقتي كل العاب وبرامج ستيم مجانا': 'ضيف دلوقتي كل العاب وبرامج ستيم مجانا',
+                'احصل على الألعاب المجانية وأضفها لمكتبة Steam الخاصة بك مع جميع التحديثات والـ DLC والأونلاين بطريقة شرعية ومجانية تماماً': 'احصل على الألعاب المجانية وأضفها لمكتبة Steam الخاصة بك مع جميع التحديثات والـ DLC والأونلاين بطريقة شرعية ومجانية تماماً',
+                'حمّل الآن': 'حمّل الآن',
+                'واجهة البرنامج': 'واجهة البرنامج',
+                'يمكنك إضافة أي لعبة أو برنامج بضغطة زر واحدة، مع جميع التحديثات والإضافات والمحتويات الإضافية بسهولة تامة ويسر': 'يمكنك إضافة أي لعبة أو برنامج بضغطة زر واحدة، مع جميع التحديثات والإضافات والمحتويات الإضافية بسهولة تامة ويسر',
+                'انضم إلى مجتمعنا': 'انضم إلى مجتمعنا',
+                'متصل الآن': 'متصل الآن',
+                'عضو كلي': 'عضو كلي',
+                'انضم الآن': 'انضم الآن',
+                'مجاني تماماً!': 'مجاني تماماً!',
+                'إضافة الألعاب مباشرة لمكتبة Steam': 'إضافة الألعاب مباشرة لمكتبة Steam',
+                'جميع الـ DLC والتحديثات مجاناً': 'جميع الـ DLC والتحديثات مجاناً',
+                'دعم الأونلاين والملتي بلاير': 'دعم الأونلاين والملتي بلاير',
+                'الألعاب الحديثة بدون كراك': 'الألعاب الحديثة بدون كراك',
+                'تحميل البرنامج الآن': 'تحميل البرنامج الآن',
+                'قائمة الألعاب الاونلاين': 'قائمة الألعاب الاونلاين',
+                'تفعيل العاب دينوفو مجاناً': 'تفعيل العاب دينوفو مجاناً',
+                'متاح اونلاين': 'متاح اونلاين'
+            },
+            en: {
+                'ZEKAA-INJECTOR': 'ZEKAA-INJECTOR',
+                'ضيف دلوقتي كل العاب وبرامج ستيم مجانا': 'Add all Steam games and programs for free now',
+                'احصل على الألعاب المجانية وأضفها لمكتبة Steam الخاصة بك مع جميع التحديثات والـ DLC والأونلاين بطريقة شرعية ومجانية تماماً': 'Get free games and add them to your Steam library with all updates, DLC and online features through legal and completely free methods',
+                'حمّل الآن': 'Download Now',
+                'واجهة البرنامج': 'Program Interface',
+                'يمكنك إضافة أي لعبة أو برنامج بضغطة زر واحدة، مع جميع التحديثات والإضافات والمحتويات الإضافية بسهولة تامة ويسر': 'You can add any game or program with one click, including all updates, add-ons and additional content with complete ease',
+                'انضم إلى مجتمعنا': 'Join Our Community',
+                'متصل الآن': 'online now',
+                'عضو كلي': 'total members',
+                'انضم الآن': 'Join Now',
+                'مجاني تماماً!': 'Completely Free!',
+                'إضافة الألعاب مباشرة لمكتبة Steam': 'Add games directly to Steam library',
+                'جميع الـ DLC والتحديثات مجاناً': 'All DLC and updates for free',
+                'دعم الأونلاين والملتي بلاير': 'Online and multiplayer support',
+                'الألعاب الحديثة بدون كراك': 'Latest games without cracks',
+                'تحميل البرنامج الآن': 'Download Program Now',
+                'قائمة الألعاب الاونلاين': 'Online Games List',
+                'تفعيل العاب دينوفو مجاناً': 'Activate Denuvo Games Free',
+                'متاح اونلاين': 'Online'
+            }
+        };
+        function toggleLanguage() {
+            const currentLang = document.documentElement.lang || 'ar';
+            const newLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = newLang;
+            document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+            const langText = document.getElementById('langText');
+            langText.textContent = newLang === 'ar' ? 'EN' : 'AR';
+            // Update all translatable elements
+            const translatableElements = document.querySelectorAll('[data-ar][data-en]');
+            translatableElements.forEach(element => {
+                const text = element.getAttribute(`data-${newLang}`);
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+            // Update Discord status text based on language
+            updateDiscordStatusLanguage(newLang);
+        }
+        function updateDiscordStatusLanguage(lang) {
+            const statusElement = document.querySelector('.discord-status');
+            if (statusElement) {
+                const currentStatus = statusElement.textContent;
+                if (currentStatus.includes('🟢')) {
+                    statusElement.textContent = lang === 'ar' ? '🟢 متصل' : '🟢 online';
+                } else if (currentStatus.includes('🟡')) {
+                    statusElement.textContent = lang === 'ar' ? '🟡 تقريبي' : '🟡 approximate';
+                }
+            }
+        }
+        // Smooth scrolling for navigation links
+        function initSmoothScrolling() {
+            const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    if (targetId === '#') return;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('.header').offsetHeight;
+                        const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+        // Scroll Animation System
+        class ScrollAnimationController {
+            constructor() {
+                this.elements = document.querySelectorAll('.scroll-element, .scroll-text, .scroll-image');
+                this.counters = document.querySelectorAll('.counter');
+                this.animatedCounters = new Set();
+                this.init();
+            }
+            init() {
+                this.createObserver();
+                this.initParallax();
+                this.initElementsOnLoad();
+            }
+            createObserver() {
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+                this.observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.animateElement(entry.target);
+                        }
+                    });
+                }, observerOptions);
+                this.elements.forEach(element => {
+                    this.observer.observe(element);
+                });
+            }
+            animateElement(element) {
+                // Stagger animation for child elements
+                if (element.classList.contains('scroll-element')) {
+                    setTimeout(() => {
+                        element.classList.add('animate');
+                    }, this.getAnimationDelay(element));
+                }
+                if (element.classList.contains('scroll-text')) {
+                    setTimeout(() => {
+                        element.classList.add('animate');
+                    }, 100);
+                }
+                if (element.classList.contains('scroll-image')) {
+                    setTimeout(() => {
+                        element.classList.add('animate');
+                    }, 200);
+                }
+                // Animate counters
+                if (element.classList.contains('counter-card') || element.querySelector('.counter')) {
+                    const counters = element.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        if (!this.animatedCounters.has(counter)) {
+                            this.animatedCounters.add(counter);
+                            setTimeout(() => {
+                                counter.classList.add('counting');
+                                this.animateCounterValue(counter);
+                            }, 300);
+                        }
+                    });
+                }
+                // Remove from observer to prevent re-animation
+                this.observer.unobserve(element);
+            }
+            getAnimationDelay(element) {
+                const parent = element.closest('section');
+                if (!parent) return 0;
+                const siblings = parent.querySelectorAll('.scroll-element');
+                const index = Array.from(siblings).indexOf(element);
+                return index * 100; // 100ms delay between elements
+            }
+            animateCounterValue(counterElement) {
+                const target = parseInt(counterElement.textContent.replace(/,/g, ''));
+                const duration = 2000;
+                let start = 0;
+                const increment = target / (duration / 16);
+                const updateCounter = () => {
+                    start += increment;
+                    if (start < target) {
+                        counterElement.textContent = Math.floor(start).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counterElement.textContent = target.toLocaleString();
+                        setTimeout(() => {
+                            counterElement.classList.remove('counting');
+                        }, 500);
+                    }
+                };
+                updateCounter();
+            }
+            initParallax() {
+                let ticking = false;
+                const updateParallax = () => {
+                    const scrolled = window.pageYOffset;
+                    const rate = scrolled * -0.5;
+                    // Parallax background
+                    const bgElements = document.querySelectorAll('body::before, body::after');
+                    document.body.style.setProperty('--scroll-y', scrolled + 'px');
+                    // Update background position
+                    const bodyBefore = document.body;
+                    if (bodyBefore) {
+                        bodyBefore.style.setProperty('--parallax-y', rate + 'px');
+                    }
+                    ticking = false;
+                };
+                const requestTick = () => {
+                    if (!ticking) {
+                        requestAnimationFrame(updateParallax);
+                        ticking = true;
+                    }
+                };
+                window.addEventListener('scroll', requestTick);
+            }
+            initElementsOnLoad() {
+                // Animate hero elements immediately
+                const heroElements = document.querySelectorAll('.hero-section .scroll-text');
+                heroElements.forEach((element, index) => {
+                    setTimeout(() => {
+                        element.classList.add('animate');
+                    }, index * 200 + 500); // Start after 500ms
+                });
+                // Animate CTA buttons
+                setTimeout(() => {
+                    const ctaButtons = document.querySelector('.hero-section .scroll-element');
+                    if (ctaButtons) {
+                        ctaButtons.classList.add('animate');
+                    }
+                }, 1500);
+            }
+        }
+        // Enhanced parallax effect with scroll position
+        function updateBackgroundParallax() {
+            const scrolled = window.pageYOffset;
+            const parallax = scrolled * 0.3;
+            document.body.style.setProperty('--parallax-offset', `translateY(${parallax}px)`);
+        }
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDiscordData();
+            initSmoothScrolling();
+            // Initialize language toggle
+            const languageToggle = document.getElementById('languageToggle');
+            if (languageToggle) {
+                languageToggle.addEventListener('click', toggleLanguage);
+            }
+            // Initialize scroll animations
+            new ScrollAnimationController();
+            // Update Discord data every 30 seconds
+            setInterval(updateDiscordData, 30000);
+            // Free Activation Key Button
+            const freeActivationBtn = document.querySelector('.free-activation-key');
+            if (freeActivationBtn) {
+                freeActivationBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Free activation key link
+                    const activationLink = 'https://923-34-35-3-zekaa-pass.blogspot.com/';
+                    // Add click animation
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                    // Open activation key page
+                    window.open(activationLink, '_blank');
+                    // Optional: Show success message
+                    const originalText = this.querySelector('.btn-text').textContent;
+                    this.querySelector('.btn-text').textContent = 'جاري التوجيه...';
+                    setTimeout(() => {
+                        this.querySelector('.btn-text').textContent = originalText;
+                    }, 2000);
+                });
+            }
+            // Add scroll listener for enhanced effects
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                updateBackgroundParallax();
+                // Add scrolling class to body for additional effects
+                document.body.classList.add('scrolling');
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    document.body.classList.remove('scrolling');
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
