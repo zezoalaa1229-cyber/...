@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة الألعاب الأونلاين</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            /* زويق ثيم - أخضر نيون وأسود */
+            --primary-green: #00ff88;
+            --secondary-green: #00cc6a;
+            --dark-bg: #000;
+            --card-bg: rgba(0, 0, 0, 0.6);
+            --border-color: rgba(0, 255, 136, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --accent-blue: #4285f4;
+            --accent-green: #34a853;
+            --shadow-green: rgba(0, 255, 136, 0.3);
+            --gradient-primary: linear-gradient(135deg, #00ff88, #00cc6a);
+            --gradient-dark: linear-gradient(135deg, #000 0%, #111 50%, #000 100%);
+        }
+        body {
+            font-family: 'Cairo', 'Inter', sans-serif;
+            background: var(--gradient-dark);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        .download-btn {
+    display: inline-block;
+    padding: 8px 15px;
+    background: linear-gradient(135deg, #00ff88, #00cc6a);
+    color: #000;
+    font-weight: 600;
+    font-size: 0.9em;
+    border-radius: 20px;
+    text-decoration: none;
+    box-shadow: 0 2px 10px rgba(0, 255, 136, 0.3);
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
+}
+        /* Enhanced Background Effect with Parallax */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            transition: transform 0.1s ease-out;
+            transform: var(--parallax-offset, translateY(0));
+        }
+        /* Floating particles background */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(0, 255, 136, 0.4), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(0, 255, 136, 0.3), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(0, 255, 136, 0.5), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(0, 255, 136, 0.3), transparent);
+            background-repeat: repeat;
+            background-size: 150px 100px;
+            pointer-events: none;
+            z-index: -1;
+            animation: floatingParticles 20s linear infinite;
+            opacity: 0.4;
+        }
+        @keyframes floatingParticles {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-100px) translateX(-50px); }
+        }
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-primary);
+            border-radius: 4px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            animation: slideDown 0.8s ease-out;
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: greenShimmer 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        .nav-link:hover::before {
+            left: 100%;
+        }
+        .nav-link:hover {
+            color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-green);
+        }
+        .nav-link.back-home {
+            background: var(--gradient-primary);
+            color: #000;
+            font-weight: 600;
+        }
+        .language-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .language-toggle:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+        }
+        /* Main Content */
+        .main-content {
+            padding: 100px 0 50px;
+            animation: contentFadeIn 1.2s ease-out;
+        }
+        @keyframes contentFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 30px auto 40px;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            padding-left: 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--text-primary);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        .search-input:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+            transform: translateY(-2px);
+        }
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-green);
+        }
+        /* Statistics Section */
+        .stats-section {
+            margin: 50px 0;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .stat-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-green);
+            box-shadow: 0 10px 30px var(--shadow-green);
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        /* Most Played Section */
+        .most-played-section {
+            margin: 60px 0;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+        /* Most Played Badge */
+        .most-played-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-primary);
+            color: #000;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
+        }
+        .most-played-badge i {
+            color: #009966;
+            font-size: 0.9rem;
+        }
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        .game-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+        .game-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .game-image {
+            height: 160px;
+            overflow: hidden;
+        }
+        .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .game-card:hover .game-image img {
+            transform: scale(1.1);
+        }
+        .game-info {
+            padding: 15px;
+        }
+        .game-info h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 8px;
+        }
+        .game-id {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        /* Online Status Styles */
+        .online-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(76, 175, 80, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        .online-text {
+            color: var(--primary-green);
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        /* Offline Status Styles */
+        .offline-status {
+            background: rgba(255, 68, 68, 0.1);
+            border-color: rgba(255, 68, 68, 0.3);
+        }
+        .offline-text {
+            color: #ff4444 !important;
+        }
+        .offline-dot {
+            background: #ff4444 !important;
+            animation: pulseRed 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        @keyframes pulseRed {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        /* Animations */
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes greenShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        /* Discord Widget */
+        .discord-widget {
+            background: var(--gradient-primary);
+            color: #000;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 255, 136, 0.3);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .discord-widget h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .discord-widget p {
+            margin-bottom: 15px;
+            color: #000;
+            font-weight: 500;
+        }
+        .discord-join-btn {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.2);
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 2px solid #000;
+        }
+        .discord-join-btn:hover {
+            background: rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .page-title {
+                font-size: 2.2rem;
+            }
+            .nav-menu {
+                width: 100%;
+                justify-content: center;
+            }
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+                gap: 15px;
+            }
+            .search-container {
+                padding: 0 15px;
+            }
+            .search-input {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">ZEKAA-INJECTOR</div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link back-home">
+                    <i class="fas fa-home"></i>
+                    <span data-ar="الرئيسية" data-en="Home">الرئيسية</span>
+                </a>
+                <a href="/store" class="nav-link st-store">
+                    <span data-ar="ST-STORE" data-en="ST-STORE">SOON</span>
+                    <i class="fas fa-store"></i>
+                </a>
+                <button id="languageToggle" class="nav-link language-toggle">
+                    <i class="fas fa-globe"></i>
+                    <span id="langText">EN</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title" data-ar="قائمة الألعاب الأونلاين" data-en="Online Games List">قائمة الألعاب الأونلاين</h1>
+                <p class="page-subtitle" data-ar="جميع الألعاب المتاحة للعب أونلاين مع الأصدقاء مجاناً" data-en="All games available to play online with friends for free">جميع الألعاب المتاحة للعب أونلاين مع الأصدقاء مجاناً</p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="ابحث عن لعبة..." id="searchInput" data-ar="ابحث عن لعبة..." data-en="Search for a game...">
+            </div>
+
+            <!-- Statistics Section -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">21</span>
+                        <span class="stat-label" data-ar="لعبة متاحة" data-en="Available Games">لعبة متاحة</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label" data-ar="مجاني تماماً" data-en="Completely Free">مجاني تماماً</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label" data-ar="متاح دائماً" data-en="Always Available">متاح دائماً</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Most Played Section -->
+            <section class="most-played-section">
+                <div class="section-header">
+                    <i class="fas fa-fire" style="color: var(--primary-green);"></i>
+                    <h2 class="section-title" data-ar="الأكثر لعباً" data-en="MOST PLAYED">الأكثر لعباً</h2>
+                </div>
+                <div class="games-grid">
+                    <!-- Peak - Most Played -->
+                    <div class="game-card most-played-card" data-name="peak">
+                        <div class="most-played-badge">
+                            <i class="fas fa-fire"></i>
+                            <span data-ar="الأكثر لعباً" data-en="MOST PLAYED">الأكثر لعباً</span>
+                        </div>
+                        <div class="game-image">
+                            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3527290/31bac6b2eccf09b368f5e95ce510bae2baf3cfcd/header.jpg?t=1753856675" alt="Peak" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Peak</h3>
+                            <p class="game-id">Steam ID: 3527290</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs22.1cloudfile.com/2PmgD/PEAK_Fix_Repair_Steam_V2_Generic_(3).rar?download_token=e4e774ba0f8356fd6e01cd57afdd46279f5e55cb93d86053c0d228c77b701bd3" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- Schedule I - Most Played -->
+                    <div class="game-card most-played-card" data-name="schedule i">
+                        <div class="most-played-badge">
+                            <i class="fas fa-star"></i>
+                            <span data-ar="الأكثر لعباً" data-en="MOST PLAYED">الأكثر لعباً</span>
+                        </div>
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/3164500/header.jpg" alt="Schedule I" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Schedule I</h3>
+                            <p class="game-id">Steam ID: 3164500</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://www.mediafire.com/file/w713z9v1io2sbiv/ScheduleI_Fix_Repair_Steam_V2_Generic+(5).rar/file" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- All Games Section -->
+            <section class="all-games-section">
+                <div class="section-header">
+                    <i class="fas fa-gamepad" style="color: var(--primary-green);"></i>
+                    <h2 class="section-title" data-ar="جميع الألعاب المتاحة" data-en="ALL AVAILABLE GAMES">جميع الألعاب المتاحة</h2>
+                </div>
+                <div class="games-grid" id="gamesGrid">
+                    <!-- R.E.P.O. -->
+                    <div class="game-card" data-name="repo">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/3241660/header.jpg" alt="R.E.P.O." loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>R.E.P.O.</h3>
+                            <p class="game-id">Steam ID: 3241660</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://www.mediafire.com/file/1atrbkxyjs9w6g7/REPO_Fix_Repair_Steam_V4_Generic.rar/file" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- Lethal Company -->
+                    <div class="game-card" data-name="lethal company">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1966720/header.jpg" alt="Lethal Company" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Lethal Company</h3>
+                            <p class="game-id">Steam ID: 1966720</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs22.1cloudfile.com/N19y/LethalCompany_Fix_Repair_Steam_Generic_(2).rar?download_token=4007a8026e4a4d02f10bb6404d72ce1b1e3d5d323f98b10527c1b1d11091979d" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- The Forest -->
+                    <div class="game-card" data-name="the forest">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/242760/header.jpg" alt="The Forest" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>The Forest</h3>
+                            <p class="game-id">Steam ID: 242760</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs20.1cloudfile.com/275zX/TheForest_Steam_Fix_(2).rar?download_token=5453772a4362e7afe8eb01abdde57fd68b590d27d507e76f5fd147abac57c71b" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- Content Warning -->
+                    <div class="game-card" data-name="content warning">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/2881650/header.jpg" alt="Content Warning" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Content Warning</h3>
+                            <p class="game-id">Steam ID: 2881650</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs20.1cloudfile.com/gao2/ContentWarning_Fix_Repair_Steam_V4_Generic.rar?download_token=609cb1da13027f5dd209c9f85ccb2ab8368bae76c06958cfb59d55243e7bc570" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- DEVOUR -->
+                    <div class="game-card" data-name="devour">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1274570/header.jpg" alt="DEVOUR" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>DEVOUR</h3>
+                            <p class="game-id">Steam ID: 1274570</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs20.1cloudfile.com/La96/DEVOUR_Fix_Repair_Steam_V8_Generic.rar?download_token=e40dc8849977bc641bd0b35125c85946a0f3025161469feab3241154d03dc05b" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- The Break-In -->
+                    <div class="game-card" data-name="the break-in">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1397390/header.jpg" alt="The Break-In" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>The Break-In</h3>
+                            <p class="game-id">Steam ID: 1397390</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs10.bowfile.com/token/download/dl/5sfx/TBI_Fix_Repair_Steam_Generic.rar?download_token=988869d9960bf731fb2d19d687a13a616de4ca4e0e3e2d0a654fe4e0b521bce7" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- Forza Horizon 5 -->
+                    <div class="game-card" data-name="forza horizon 5">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1551360/header.jpg" alt="Forza Horizon 5" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Forza Horizon 5</h3>
+                            <p class="game-id">Steam ID: 1551360</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs20.1cloudfile.com/1LqD/FH5_Fix_Repair_Steam_Generic.rar?download_token=eff67c8aa380ed61dedd7caaa5c667c1a48bae68249a1766251e6b37b527c454" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- Stick Fight -->
+                    <div class="game-card" data-name="stick fight">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/674940/header.jpg" alt="Stick Fight" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Stick Fight</h3>
+                            <p class="game-id">Steam ID: 674940</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs20.1cloudfile.com/cptC/SFTG_Fix_Repair_Steam_Generic.rar?download_token=0da4594f9087b976d8a46d5b9cc1aca225d1b5b4c5609f9848cf698db545db45" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- Overcooked 2 -->
+                    <div class="game-card" data-name="overcooked 2">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/728880/header.jpg" alt="Overcooked 2" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Overcooked 2</h3>
+                            <p class="game-id">Steam ID: 728880</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs20.1cloudfile.com/c19m/O2_Fix_Repair_Steam_V3_Generic.rar?download_token=b5a144e190c58151e8917df40a98dfa7a72ac4f95897dd785afbb02e0b85dfb9" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- Phasmophobia -->
+                    <div class="game-card" data-name="phasmophobia">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/739630/header.jpg" alt="Phasmophobia" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Phasmophobia</h3>
+                            <p class="game-id">Steam ID: 739630</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs20.1cloudfile.com/4OEhi/Phasmophobia_Fix_Repair_Steam_V2_Generic.rar?download_token=ec489d025df4441a162f05d04f88d5cba4a31c140c6800a389d467538a7bb91e" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- Hearts of Iron IV -->
+                    <div class="game-card" data-name="hearts of iron iv">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/394360/header.jpg" alt="Hearts of Iron IV" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Hearts of Iron IV</h3>
+                            <p class="game-id">Steam ID: 394360</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs22.1cloudfile.com/1tck4/HOIIV_Fix_Repair_Steam_V4_Generic_(3).rar?download_token=1f2789c04777e0073cdc6c08f36e18029fd0144c702d6f3d43a83986eff9d6ae" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- Split Fiction -->
+                    <div class="game-card" data-name="split fiction">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/2001120/header.jpg" alt="Split Fiction" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Split Fiction</h3>
+                            <p class="game-id">Steam ID: 2001120</p>
+                            <div class="online-status offline-status">
+                                <span class="online-text offline-text" data-ar="غير متاح" data-en="Offline">غير متاح</span>
+                                <div class="status-dot offline-dot"></div>
+                            </div>
+                            <a href="https://zekaad.online/" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- 7 Days to Die -->
+                    <div class="game-card" data-name="7 days to die">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/251570/header.jpg" alt="7 Days to Die" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>7 Days to Die</h3>
+                            <p class="game-id">Steam ID: 251570</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                                </div>
+                            <a href="https://fs22.bowfile.com/token/download/dl/1r7y9/7DaysToDie_Fix_Repair_GDK_Generic.rar?download_token=5beaef70b18949c8c5ce234ded48aa7afdf928149d1e850d8e39d9d078ae5ef2" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- Schedule I -->
+                    <div class="game-card" data-name="schedule i">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/3164500/header.jpg" alt="Schedule I" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Schedule I</h3>
+                            <p class="game-id">Steam ID: 3164500</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://www.mediafire.com/file/w713z9v1io2sbiv/ScheduleI_Fix_Repair_Steam_V2_Generic+(5).rar/file" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- JTTSP -->
+                    <div class="game-card" data-name="jttsp">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/973810/header.jpg" alt="JTTSP" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>JTTSP</h3>
+                            <p class="game-id">Steam ID: 973810</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs21.bowfile.com/token/download/dl/48Atc/JTTSP_Fix_Repair_Steam_Generic.rar?download_token=0533580281ff6bf503f524ef6333030544c8f018b75623df64a82bb68b55e5b0" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- Dying Light 2: Reloaded Edition -->
+                    <div class="game-card" data-name="dying light 2 reloaded edition">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/534380/header.jpg" alt="Dying Light 2: Reloaded Edition" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Dying Light 2: Reloaded Edition</h3>
+                            <p class="game-id">Steam ID: 534380</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs21.1cloudfile.com/1tc1a/DL2SH_Fix_Repair_Steam_V5_Generic_(2).rar?download_token=4382f6e1b538b8e14b4baccb4157d894a18da9363e192dc0a3a05a847e0ad3f5" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- FastFoodSimulator -->
+                    <div class="game-card" data-name="fastfoodsimulator">
+                        <div class="game-image">
+                            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2916430/header.jpg?t=1733918579" alt="FastFoodSimulator" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>FastFoodSimulator</h3>
+                            <p class="game-id">Steam ID: 2916430</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs21.1cloudfile.com/2Nxjv/FastFoodSimulator_Fix_Repair_Steam_Generic.rar?download_token=f22a7c75751623839e35f6f0c0729cb0d6bbc0a740d6949ff2e05adf22e25145" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- Wobbly Life -->
+                    <div class="game-card" data-name="wobbly life">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1211020/header.jpg" alt="Wobbly Life" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Wobbly Life</h3>
+                            <p class="game-id">Steam ID: 1211020</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs20.1cloudfile.com/58tg/WL_Fix_Repair_Steam_Generic.rar?download_token=91fb767389f5c1d310c990e59ea23f55e99e8fb721925042a60a9fe6addf968c" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- Liar's Bar -->
+                    <div class="game-card" data-name="liar's bar">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/3097560/header.jpg" alt="Liar's Bar" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>Liar's Bar</h3>
+                            <p class="game-id">Steam ID: 3097560</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs20.1cloudfile.com/29o8u/LiarsBar_Fix_Repair_Steam_V2_Generic.rar?download_token=9262c045b95c4a83f512367631398f483ba21ad8c657b7cfa64624cc09342b2c" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- SuperSmash -->
+                    <div class="game-card" data-name="supersmash">
+                        <div class="game-image">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1077290/header.jpg" alt="SuperSmash" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>SuperSmash</h3>
+                            <p class="game-id">Steam ID: 1077290</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs21.1cloudfile.com/4aw2x/SSPB_Fix_Repair_Steam_Generic.rar?download_token=73c6908be4769489bd87884dea407bd20b0b645d31019f623de8e651e00f3826" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                    <!-- The Long Drive -->
+                    <div class="game-card" data-name="the long drive">
+                        <div class="game-image">
+                            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1017180/header.jpg?t=1751568928" alt="The Long Drive" loading="lazy">
+                        </div>
+                        <div class="game-info">
+                            <h3>The Long Drive</h3>
+                            <p class="game-id">Steam ID: 1017180</p>
+                            <div class="online-status">
+                                <span class="online-text" data-ar="متاح اونلاين" data-en="Online Available">متاح اونلاين</span>
+                                <div class="status-dot"></div>
+                            </div>
+                            <a href="https://fs20.1cloudfile.com/Mfkg/TLD_Fix_Repair_Steam_V3_Generic.rar?download_token=0c467490c279db26e4f781b96cc262c00d51376b7e2a4c34400aabd7931150cc" target="_blank" class="download-btn">تحميل</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Discord Widget -->
+            <div class="discord-widget">
+                <h3>انضم إلى مجتمعنا</h3>
+                <p>لاضافه اي لعبه</p>
+                <a href="https://discord.gg/zTRRN4Na2G" class="discord-join-btn">اضفط هنا</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Translation system
+        const translations = {
+            ar: {
+                'قائمة الألعاب الأونلاين': 'قائمة الألعاب الأونلاين',
+                'جميع الألعاب المتاحة للعب أونلاين مع الأصدقاء مجاناً': 'جميع الألعاب المتاحة للعب أونلاين مع الأصدقاء مجاناً',
+                'الرئيسية': 'الرئيسية',
+                'إحصائيات الألعاب': 'إحصائيات الألعاب',
+                'لعبة متاحة': 'لعبة متاحة',
+                'مجاني تماماً': 'مجاني تماماً',
+                'متاح دائماً': 'متاح دائماً',
+                'متاح اونلاين': 'متاح اونلاين',
+                'غير متاح': 'غير متاح',
+                'الأكثر لعباً': 'الأكثر لعباً',
+                'جميع الألعاب المتاحة': 'جميع الألعاب المتاحة'
+            },
+            en: {
+                'قائمة الألعاب الأونلاين': 'Online Games List',
+                'جميع الألعاب المتاحة للعب أونلاين مع الأصدقاء مجاناً': 'All games available to play online with friends for free',
+                'الرئيسية': 'Home',
+                'إحصائيات الألعاب': 'Game Statistics',
+                'لعبة متاحة': 'Available Games',
+                'مجاني تماماً': 'Completely Free',
+                'متاح دائماً': 'Always Available',
+                'متاح اونلاين': 'Online Available',
+                'غير متاح': 'Offline',
+                'الأكثر لعباً': 'MOST PLAYED',
+                'جميع الألعاب المتاحة': 'ALL AVAILABLE GAMES'
+            }
+        };
+
+        function toggleLanguage() {
+            const currentLang = document.documentElement.lang || 'ar';
+            const newLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = newLang;
+            document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+            const langText = document.getElementById('langText');
+            langText.textContent = newLang === 'ar' ? 'EN' : 'AR';
+
+            const translatableElements = document.querySelectorAll('[data-ar][data-en]');
+            translatableElements.forEach(element => {
+                const text = element.getAttribute(`data-${newLang}`);
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+        }
+
+        // Search Functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.game-card').forEach(card => {
+                const gameName = card.getAttribute('data-name').toLowerCase();
+                if (gameName.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.game-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Initialize language toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const languageToggle = document.getElementById('languageToggle');
+            if (languageToggle) {
+                languageToggle.addEventListener('click', toggleLanguage);
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+

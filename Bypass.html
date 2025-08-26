@@ -1,0 +1,785 @@
+f<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة اللعاب Bypass</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-green: #00ff88;
+            --secondary-green: #00cc6a;
+            --dark-bg: #000;
+            --card-bg: rgba(0, 0, 0, 0.6);
+            --border-color: rgba(0, 255, 136, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --shadow-green: rgba(0, 255, 136, 0.3);
+            --gradient-primary: linear-gradient(135deg, #00ff88, #00cc6a);
+            --gradient-dark: linear-gradient(135deg, #000 0%, #111 50%, #000 100%);
+        }
+        body {
+            font-family: 'Cairo', 'Inter', sans-serif;
+            background: var(--gradient-dark);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        .download-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            color: #000;
+            font-weight: 600;
+            font-size: 0.9em;
+            border-radius: 20px;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0, 255, 136, 0.3);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
+        }
+        /* Enhanced Background Effect with Parallax */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            transition: transform 0.1s ease-out;
+            transform: var(--parallax-offset, translateY(0));
+        }
+        /* Floating particles background */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(0, 255, 136, 0.4), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(0, 255, 136, 0.3), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(0, 255, 136, 0.5), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(0, 255, 136, 0.3), transparent);
+            background-repeat: repeat;
+            background-size: 150px 100px;
+            pointer-events: none;
+            z-index: -1;
+            animation: floatingParticles 20s linear infinite;
+            opacity: 0.4;
+        }
+        @keyframes floatingParticles {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-100px) translateX(-50px); }
+        }
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-primary);
+            border-radius: 4px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            animation: slideDown 0.8s ease-out;
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: greenShimmer 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        .nav-link:hover::before {
+            left: 100%;
+        }
+        .nav-link:hover {
+            color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-green);
+        }
+        .nav-link.back-home {
+            background: var(--gradient-primary);
+            color: #000;
+            font-weight: 600;
+        }
+        .language-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .language-toggle:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+        }
+        /* Main Content */
+        .main-content {
+            padding: 100px 0 50px;
+            animation: contentFadeIn 1.2s ease-out;
+        }
+        @keyframes contentFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 30px auto 40px;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            padding-left: 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--text-primary);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        .search-input:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+            transform: translateY(-2px);
+        }
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-green);
+        }
+        /* Statistics Section */
+        .stats-section {
+            margin: 50px 0;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .stat-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-green);
+            box-shadow: 0 10px 30px var(--shadow-green);
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        .game-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+        .game-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .game-image {
+            height: 160px;
+            overflow: hidden;
+        }
+        .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .game-card:hover .game-image img {
+            transform: scale(1.1);
+        }
+        .game-info {
+            padding: 15px;
+        }
+        .game-info h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 8px;
+        }
+        .game-id {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        /* Animations */
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes greenShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        /* Discord Widget */
+        .discord-widget {
+            background: var(--gradient-primary);
+            color: #000;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 255, 136, 0.3);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .discord-widget h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .discord-widget p {
+            margin-bottom: 15px;
+            color: #000;
+            font-weight: 500;
+        }
+        .discord-join-btn {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.2);
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 2px solid #000;
+        }
+        .discord-join-btn:hover {
+            background: rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .page-title {
+                font-size: 2.2rem;
+            }
+            .nav-menu {
+                width: 100%;
+                justify-content: center;
+            }
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+                gap: 15px;
+            }
+            .search-container {
+                padding: 0 15px;
+            }
+            .search-input {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">ZEKAA-INJECTOR</div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link back-home">
+                    <i class="fas fa-home"></i>
+                    <span data-ar="الرئيسية" data-en="Home">الرئيسية</span>
+                </a>
+                <a href="games.html" class="nav-link gamelist">
+                    <i class="fas fa-wifi"></i>
+                    <span data-ar="قائمة الألعاب الاونلاين" data-en="Online Games List">قائمة الألعاب الاونلاين</span>    
+                </a>
+                <a href="/store" class="nav-link st-store">
+                    <span data-ar="ST-STORE" data-en="ST-STORE">SOON</span>
+                    <i class="fas fa-store"></i>
+                </a>
+                <button id="languageToggle" class="nav-link language-toggle">
+                    <i class="fas fa-globe"></i>
+                    <span id="langText">EN</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title" data-ar="قائمة الألعاب Bypass" data-en="Online Games List">قائمة الألعاب Bypass</h1>
+                <p class="page-subtitle" data-ar="جميع الألعاب المتاحة للعب أونلاين مع الأصدقاء مجاناً" data-en="All games available to play online with friends for free">جميع الألعاب المتاحة للعب أونلاين مع الأصدقاء مجاناً</p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="ابحث عن لعبة..." id="searchInput" data-ar="ابحث عن لعبة..." data-en="Search for a game...">
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar" style="text-align: center; margin: 20px 0 30px;">
+                <span style="color: var(--text-secondary); font-weight: 600; margin-left: 15px;">الشركة:</span>
+                <button class="filter-btn" data-company="all" style="background: var(--gradient-primary); color: #000; border: none; padding: 8px 15px; margin: 0 5px; border-radius: 50%; cursor: pointer; transition: all 0.3s; width: 50px; height: 50px; display: inline-flex; align-items: center; justify-content: center;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3303/3303843.png" alt="All Games" style="width: 30px; height: 30px; object-fit: contain;">
+                </button>
+                <button class="filter-btn" data-company="ubisoft" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); padding: 8px 15px; margin: 0 5px; border-radius: 50%; cursor: pointer; transition: all 0.3s; width: 50px; height: 50px; display: inline-flex; align-items: center; justify-content: center;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Ubisoft_logo.svg/250px-Ubisoft_logo.svg.png" alt="Ubisoft" style="width: 40px; height: 40px; object-fit: contain; filter: invert(1) opacity(0.9);">
+                </button>
+                <button class="filter-btn" data-company="ea" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); padding: 8px 15px; margin: 0 5px; border-radius: 50%; cursor: pointer; transition: all 0.3s; width: 50px; height: 50px; display: inline-flex; align-items: center; justify-content: center;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Electronic-Arts-Logo.svg/1200px-Electronic-Arts-Logo.svg.png" alt="EA" style="width: 40px; height: 40px; object-fit: contain; filter: invert(1) opacity(0.9);">
+                </button>
+                <button class="filter-btn" data-company="rockstar" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); padding: 8px 15px; margin: 0 5px; border-radius: 50%; cursor: pointer; transition: all 0.3s; width: 50px; height: 50px; display: inline-flex; align-items: center; justify-content: center;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Rockstar_Games_Logo.svg/1200px-Rockstar_Games_Logo.svg.png" alt="Rockstar" style="width: 40px; height: 40px; object-fit: contain; filter: invert(1) opacity(0.9);">
+                </button>
+            </div>
+
+            <!-- Statistics Section -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">15</span>
+                        <span class="stat-label" data-ar="لعبة متاحة" data-en="Available Games">لعبة متاحة</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label" data-ar="مجاني تماماً" data-en="Completely Free">مجاني تماماً</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label" data-ar="متاح دائماً" data-en="Always Available">متاح دائماً</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- All Games Section -->
+            <section class="all-games-section">
+                <div class="section-header">
+                    <i class="fas fa-gamepad" style="color: var(--primary-green);"></i>
+                    <h2 class="section-title" data-ar="جميع الألعاب المتاحة" data-en="ALL AVAILABLE GAMES">جميع الألعاب المتاحة</h2>
+                </div>
+                <div class="games-grid" id="gamesGrid">
+
+<!-- =============== UBISOFT (25) =============== -->
+
+<div class="game-card" data-name="assassin's creed odyssey" data-company="ubisoft">
+    <div class="game-image">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/812140/header.jpg" alt="Assassin's Creed Odyssey" loading="lazy">
+    </div>
+    <div class="game-info">
+        <h3>Assassin's Creed Odyssey</h3>
+        <p class="game-id">Steam ID: 812140</p>
+        <a href="https://www.mediafire.com/file/boll12mphgmdjak/Assassin's+Creed+Odyssey.zip/file" target="_blank" class="download-btn">تحميل</a>
+    </div>
+</div>
+
+<div class="game-card" data-name="assassin's creed origins" data-company="ubisoft">
+    <div class="game-image">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/582160/header.jpg" alt="Assassin's Creed Origins" loading="lazy">
+    </div>
+    <div class="game-info">
+        <h3>Assassin's Creed Origins</h3>
+        <p class="game-id">Steam ID: 582160</p>
+        <a href="https://www.mediafire.com/file/rg1e1wkfijh5695/Assassin's+Creed+Origins.zip/file" target="_blank" class="download-btn">تحميل</a>
+    </div>
+</div>
+
+<div class="game-card" data-name="far cry 6" data-company="ubisoft">
+    <div class="game-image">
+        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2369390/header.jpg?t=1752169605" alt="Far Cry 6" loading="lazy">
+    </div>
+    <div class="game-info">
+        <h3>Far Cry 6</h3>
+        <p class="game-id">Steam ID: 2369390</p>
+        <a href="https://ssssss" target="_blank" class="download-btn">تحميل</a>
+    </div>
+</div>
+
+<div class="game-card" data-name="far cry 4" data-company="ubisoft">
+    <div class="game-image">
+        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/298110/header.jpg?t=1752169359" alt="Far Cry 4" loading="lazy">
+    </div>
+    <div class="game-info">
+        <h3>Far Cry 4</h3>
+        <p class="game-id">Steam ID: 298110</p>
+        <a href="https://www.mediafire.com/file/wcyassgynsi91yu/Far+Cry+4.zip/file" target="_blank" class="download-btn">تحميل</a>
+    </div>
+</div>
+
+<div class="game-card" data-name="far cry 3" data-company="ubisoft">
+    <div class="game-image">
+        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/220240/header.jpg?t=1752169206" alt="Far Cry 3" loading="lazy">
+    </div>
+    <div class="game-info">
+        <h3>Far Cry 3</h3>
+        <p class="game-id">Steam ID: 220240</p>
+        <a href="https://www.mediafire.com/file/02e3blogaqa4k68/Far+Cry+3.zip/file" target="_blank" class="download-btn">تحميل</a>
+    </div>
+</div>
+
+<div class="game-card" data-name="watch dogs 2" data-company="ubisoft">
+    <div class="game-image">
+        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/447040/header.jpg?t=1751986887" alt="Watch Dogs 2" loading="lazy">
+    </div>
+    <div class="game-info">
+        <h3>Watch Dogs 2</h3>
+        <p class="game-id">Steam ID: 447040</p>
+        <a href="https://www.mediafire.com/file/9a9rpl9y42ydalr/Watch+Dogs+2.zip/file" target="_blank" class="download-btn">تحميل</a>
+    </div>
+</div>
+
+<div class="game-card" data-name="far cry 5" data-company="ubisoft">
+    <div class="game-image">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/552520/header.jpg" alt="Far Cry 5" loading="lazy">
+    </div>
+    <div class="game-info">
+        <h3>Far Cry 5</h3>
+        <p class="game-id">Steam ID: 552520</p>
+        <a href="https://sssssss" target="_blank" class="download-btn">تحميل</a>
+    </div>
+</div>
+
+<div class="game-card" data-name="watch dogs" data-company="ubisoft">
+    <div class="game-image">
+        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/243470/header.jpg?t=1739177057" alt="Watch Dogs" loading="lazy">
+    </div>
+    <div class="game-info">
+        <h3>Watch Dogs</h3>
+        <p class="game-id">Steam ID: 243470</p>
+        <a href="https://www.mediafire.com/file/jfcdm8uyx9rqcj0/Watch+Dogs.zip/file" target="_blank" class="download-btn">تحميل</a>
+    </div>
+</div>
+
+<!-- =============== EA (25) =============== -->
+
+
+
+<!-- =============== ROCKSTAR (10) =============== -->
+
+<div class="game-card" data-name="gta 5" data-company="rockstar">
+    <div class="game-image">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/271590/header.jpg" alt="Grand Theft Auto V" loading="lazy">
+    </div>
+    <div class="game-info">
+        <h3>Grand Theft Auto V</h3>
+        <p class="game-id">Steam ID: 271590</p>
+        <a href="https://www.mediafire.com/file/s341lumjnemwcfu/Grand_Theft_Auto_V.zip/file" target="_blank" class="download-btn">تحميل</a>
+    </div>
+</div>
+
+<div class="game-card" data-name="red dead redemption 2" data-company="rockstar">
+    <div class="game-image">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg" alt="Red Dead Redemption 2" loading="lazy">
+    </div>
+    <div class="game-info">
+        <h3>Red Dead Redemption 2</h3>
+        <p class="game-id">Steam ID: 1174180</p>
+        <a href="https://www.mediafire.com/file/q76ghq4ug3owwnz/Red+Dead+Redemption+2.zip/file" target="_blank" class="download-btn">تحميل</a>
+    </div>
+</div>
+
+<div class="game-card" data-name="gta san andreas" data-company="rockstar">
+    <div class="game-image">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/12120/header.jpg" alt="GTA: San Andreas" loading="lazy">
+    </div>
+    <div class="game-info">
+        <h3>Grand Theft Auto: San Andreas</h3>
+        <p class="game-id">Steam ID: 12120</p>
+        <a href="https://www.mediafire.com/file/41l8g67rgf188ts/Grand+Theft+Auto+San+Andreas.zip/file" target="_blank" class="download-btn">تحميل</a>
+    </div>
+</div>
+
+<div class="game-card" data-name="gta iv" data-company="rockstar">
+    <div class="game-image">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/12210/header.jpg" alt="GTA IV" loading="lazy">
+    </div>
+    <div class="game-info">
+        <h3>Grand Theft Auto IV</h3>
+        <p class="game-id">Steam ID: 12210</p>
+        <a href="https://www.mediafire.com/file/flicnh86s00cc4z/Grand+Theft+Auto+IV.zip/file" target="_blank" class="download-btn">تحميل</a>
+    </div>
+</div>
+
+</div>
+            </section>
+
+             <!-- Discord Widget -->
+            <div class="discord-widget">
+                <h3>انضم إلى مجتمعنا</h3>
+                <p>لاضافه اي لعبه</p>
+                <a href="https://discord.gg/zTRRN4Na2G" class="discord-join-btn">اضفط هنا</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Translation system
+        const translations = {
+            ar: {
+                'قائمة الألعاب Bypass': 'قائمة الألعاب Bypass',
+                'جميع الألعاب المتاحة للعب أونلاين مع الأصدقاء مجاناً': 'جميع الألعاب المتاحة للعب أونلاين مع الأصدقاء مجاناً',
+                'الرئيسية': 'الرئيسية',
+                'إحصائيات الألعاب': 'إحصائيات الألعاب',
+                'لعبة متاحة': 'لعبة متاحة',
+                'مجاني تماماً': 'مجاني تماماً',
+                'متاح دائماً': 'متاح دائماً',
+                'متاح اونلاين': 'متاح اونلاين',
+                'غير متاح': 'غير متاح',
+                'الأكثر لعباً': 'الأكثر لعباً',
+                'جميع الألعاب المتاحة': 'جميع الألعاب المتاحة'
+            },
+            en: {
+                'قائمة الألعاب Bypass': 'Online Games List',
+                'جميع الألعاب المتاحة للعب أونلاين مع الأصدقاء مجاناً': 'All games available to play online with friends for free',
+                'الرئيسية': 'Home',
+                'إحصائيات الألعاب': 'Game Statistics',
+                'لعبة متاحة': 'Available Games',
+                'مجاني تماماً': 'Completely Free',
+                'متاح دائماً': 'Always Available',
+                'متاح اونلاين': 'Online Available',
+                'غير متاح': 'Offline',
+                'الأكثر لعباً': 'MOST PLAYED',
+                'جميع الألعاب المتاحة': 'ALL AVAILABLE GAMES'
+            }
+        };
+
+        function toggleLanguage() {
+            const currentLang = document.documentElement.lang || 'ar';
+            const newLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = newLang;
+            document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+            const langText = document.getElementById('langText');
+            langText.textContent = newLang === 'ar' ? 'EN' : 'AR';
+
+            const translatableElements = document.querySelectorAll('[data-ar][data-en]');
+            translatableElements.forEach(element => {
+                const text = element.getAttribute(`data-${newLang}`);
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+        }
+
+        // Search Functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filter = document.querySelector('.filter-btn[style*="background: var(--gradient-primary)"]').getAttribute('data-company');
+            document.querySelectorAll('.game-card').forEach(card => {
+                const gameName = card.getAttribute('data-name').toLowerCase();
+                const company = card.getAttribute('data-company');
+                const matchesSearch = gameName.includes(searchTerm);
+                const matchesFilter = filter === 'all' || company === filter;
+                if (matchesSearch && matchesFilter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Filter by company
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.style.background = 'rgba(255,255,255,0.1)';
+                    btn.style.color = 'var(--text-primary)';
+                });
+                this.style.background = 'var(--gradient-primary)';
+                this.style.color = '#000';
+
+                // Filter games
+                const filter = this.getAttribute('data-company');
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                document.querySelectorAll('.game-card').forEach(card => {
+                    const company = card.getAttribute('data-company');
+                    const gameName = card.getAttribute('data-name').toLowerCase();
+                    const matchesFilter = filter === 'all' || company === filter;
+                    const matchesSearch = gameName.includes(searchTerm);
+                    if (matchesFilter && matchesSearch) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.game-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Initialize language toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const languageToggle = document.getElementById('languageToggle');
+            if (languageToggle) {
+                languageToggle.addEventListener('click', toggleLanguage);
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+
